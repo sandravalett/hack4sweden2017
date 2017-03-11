@@ -36,7 +36,7 @@
                 "cabin": 37
             },
             "cover": {
-                "all": 0.10,
+                "all": 0.50,
                 "camp": 0.20,
                 "hotel": 0.30,
                 "hostel": 0.20,
