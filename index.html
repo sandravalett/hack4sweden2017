@@ -30,9 +30,24 @@
       <div id="chartdiv" class="map"></div>
 
       <div ng-if="showInfo" class="info-box">
-          {{selectedData.name}} <br/>
-          {{selectedData.cover.all}}
-          {{selectedData.beds.all}}
+          <h2>{{selectedData.name}}</h2>
+          <ul>
+              <li>
+                  Övernattningar: <strong>{{selectedData.nights.all}}</strong>
+              </li>
+              <li>
+                  Andel av sveriges övernattningar: <strong>{{selectedData.nights.percentage}}%</strong>
+              </li>
+              <li>
+                  Beläggning: <strong>{{selectedData.cover.all}}%</strong>
+              </li>
+              <li>
+                  Medeltemp: <strong>{{selectedData.weather.temp}}°C</strong>
+              </li>
+              <li>
+                  Nederbörd: <strong>{{selectedData.weather.preci}}mm</strong>
+              </li>
+          </ul>
         </div>
       </div>
 
