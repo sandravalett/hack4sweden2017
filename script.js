@@ -1,160 +1,140 @@
 var app = angular.module('app', []);
-app.controller('ctrl', function($scope) {
-    $scope.heading= "Team Awesome";
+app.controller('ctrl', function($scope, $http) {
+    $scope.heading= "Team Awesomeness";
     $scope.selectedArea = "";
+    $scope.selectedPeriod = 0;
+    $scope.selectedData = {};
+    $scope.showInfo = false;
+    $scope.allDate = null;
 
-    var map = AmCharts.makeChart( "chartdiv", {
-      "type": "map",
-      "theme": "light",
-      "colorSteps": 10,
-      "dataProvider": {
-        "map": "swedenLow",
-        "areas": [
-          {
-            "id": "SE-M",
-            "value": 4447100
-          },
-          {
-            "id": "SE-O",
-            "value": 4447100
-
-          },
-          {
-            "id": "SE-K",
-            "value": 4447100
-
-          },
-              {
-                  "id": "SE-C",
-                  "value": 4447100
-
-                },
-                {
-                    "id": "SE-AB",
-                    "value": 4447100
-
-                  },
-                  {
-                      "id": "SE-I",
-                      "value": 4447100
-
-                    },
-                    {
-                        "id": "SE-AC",
-                        "value": 4447100
-
-                      },
-                  {
-                          "id": "SE-Y",
-                          "value": 4447100
-
-                        },
-
-                        {
-                            "id": "SE-BD",
-                            "value": 4447100
-
-                          }, {
-                              "id": "SE-Z",
-                              "value": 4447100
-
-                            },
-                            {
-                                "id": "SE-S",
-                                "value": 4447100
-
-                              },
-                              {
-                                  "id": "SE-N",
-                                  "value": 4447100
-
-                                },
-                                {
-                                    "id": "SE-N",
-                                    "value": 4447100
-
-                                  },
-                                  {
-                                      "id": "SE-U",
-                                      "value": 4447100
-
-                                    },
-                                    {
-                                        "id": "SE-D",
-                                        "value": 4447100
-
-                                      },
-                                  {
-                                          "id": "SE-E",
-                                          "value": 4447100
-
-                                        },
-                                        {
-                                        "id": "SE-T",
-                                        "value": 4447100
-
-                                      },
-
-                                      {
-                                          "id": "SE-G",
-                                          "value": 4447100
-
-                                        }, {
-                                            "id": "SE-W",
-                                            "value": 4447100
-
-                                          },
-                                          {
-                                              "id": "SE-H",
-                                              "value": 4447100
-
-                                            },
-                                            {
-                                                "id": "SE-F",
-                                                "value": 4447100
-
-                                              },
-                                              {
-                                                  "id": "SE-X",
-                                                  "value": 4447100
-
-                                                }
-
-        ]
-
-      },
-
-      "areasSettings": {
-        "autoZoom": true
-      },
-
-      "export": {
-        "enabled": false
-      }
+    $http.get('finalData.json').success(function(data) {
+      $scope.allData = data;
+      $scope.makeChart();
     });
+    let map = "";
 
-    map.addListener("clickMapObject", function (event) {
-      if (event.mapObject.objectType !== "MapArea")
-        return;
-
-      $scope.$apply(function(){
-          if($scope.selectedArea == area.id){
-            $scope.selectedArea = "";
-          }
-          else{
-            $scope.selectedArea = area.id;
-          }
+    $scope.makeChart = function(){
+      var areas = $scope.allData[$scope.selectedPeriod].counties.map(function(county) {
+         let obj = {
+           id: county.id,
+           value: (county.cover.all * 100),
+           showAsSelected: county.id === $scope.selectedArea
+         };
+         return obj;
+       });
+      map = AmCharts.makeChart( "chartdiv", {
+        "type": "map",
+        "theme": "light",
+        "colorSteps": 10,
+        "backgroundColor": "#454523",
+        "dataProvider": {
+          "map": "swedenLow",
+          "areas": areas
+        },
+        "areasSettings": {
+          "autoZoom": true,
+          alpha: 1,
+      		color: "#AACE9B",
+      		colorSolid: "#51843A",
+      		outlineColor: "#FFFFFF",
+      		outlineAlpha: 0.5,
+      		outlineThickness: 1,
+      		rollOverColor: "#8BA6A9",
+      		rollOverOutlineColor: "#fff",
+      		selectedOutlineColor: "#fff",
+      		selectedColor: "#A7CECB",
+      		unlistedAreasOutlineColor: "#FFFFFF",
+      		unlistedAreasOutlineAlpha: 0.5,
+      		autoZoom: true
+        },
+        "export": {
+          "enabled": false
+        },
+          "valueLegend": {
+            "right": 10,
+            "minValue": "0%",
+            "maxValue": "100%"
+          },
       });
+
+      map.addListener("clickMapObject", function (event) {
+        if (event.mapObject.objectType !== "MapArea")
+          return;
+
+        $scope.$apply(function(){
+            if($scope.selectedArea == event.mapObject.id){
+               $scope.selectedArea = "";
+               map.selectObject(null);
+               $scope.setSelectedData(null);
+
+            }
+            else{
+              $scope.selectedArea = event.mapObject.id;
+              $scope.setSelectedData(event.mapObject.id);
+
+            }
+        });
+
+      });
+      map.addListener("homeButtonClicked",function(event){
+        $scope.makeChart();
+      });
+      map.addListener("selectedObjectChanged", function(event){
+        
+      });
+  }
+
+    $scope.getMonth = function(){
+      let list = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
+      return list[$scope.selectedPeriod];
+    }
+    $scope.datestring = "2016 - "+$scope.getMonth();
+
+
+    $scope.setSelectedData = function(id){
+      if(id != undefined){
+        var selectedList = $scope.allData[$scope.selectedPeriod].counties.filter(function(county){return county.id === id});
+        $scope.selectedData = selectedList[0] || undefined;
+        $scope.showInfo = selectedList.length > 0;
+      }
+      else{
+        $scope.selectedData = undefined;
+        $scope.showInfo = false;
+
+      }
+    }
+    $scope.updateChart = function(){
+      var areas = $scope.allData[$scope.selectedPeriod].counties.map(function(county) {
+         let obj = {
+           id: county.id,
+           value: (county.cover.all * 100),
+           showAsSelected: county.id === $scope.selectedArea
+             };
+         return obj;
+       });
+
+      map.dataProvider.areas = areas;
+      map.dataProvider.zoomLevel = map.zoomLevel();
+      map.dataProvider.zoomLatitude = map.dataProvider.zoomLatitudeC = map.zoomLatitude();
+      map.dataProvider.zoomLongitude = map.dataProvider.zoomLongitudeC = map.zoomLongitude();
+      let a = map.selectedObject;
+      // update map
+      map.validateData();
+      map.selectObject(a);
+
+
+
+
+      var selectedList = $scope.allData[$scope.selectedPeriod].counties.filter(function(county){return county.id === $scope.selectedArea});
+      $scope.selectedData = selectedList[0];
+    }
+    $scope.$watch('selectedPeriod', function() {
+        $scope.datestring = "2016 - "+$scope.getMonth();
+        if($scope.allData != null){
+          $scope.updateChart();
+
+        }
+
     });
 
 });
-
-
-function getSelectedCounties() {
-  var selected = [];
-  for(var i = 0; i < map.dataProvider.areas.length; i++) {
-    if(map.dataProvider.areas[i].showAsSelected)
-      selected.push(map.dataProvider.areas[i].id);
-  }
-  return selected[0] || "";
-}
