@@ -1,0 +1,138 @@
+[
+    {
+    "sweden": {
+        "beds": 123,
+        "cover": 0.34,
+        "topCountries": [
+            {
+                "name": "Norway",
+                "id": "no",
+                "share": 0.21
+            },
+            {
+                "name": "Norway",
+                "id": "no",
+                "share": 0.21
+            },{
+                "name": "Norway",
+                "id": "no",
+                "share": 0.21
+            }
+        ]
+    },
+    "counties":[
+        {
+            "id": "sk",
+            "name": "Skåne",
+            "weather": {
+                "temp": 11,
+                "preci": 32
+            },
+            "beds": {
+                "all": 7473,
+                "camp": 31,
+                "hotel": 984,
+                "hostel": 234,
+                "cabin": 37
+            },
+            "cover": {
+                "all": 0.10,
+                "camp": 0.20,
+                "hotel": 0.30,
+                "hostel": 0.20,
+                "cabin": 0.20,
+                "ofSweden": 0.28
+            },
+            "topCountries": [
+                {
+                    "name": "Sweden",
+                    "id": "se",
+                    "share": 0.41
+                },
+                {
+                    "name": "Norway",
+                    "id": "no",
+                    "share": 0.21
+                },{
+                    "name": "Norway",
+                    "id": "no",
+                    "share": 0.21
+                }
+            ],
+            "foreginTourism": {
+                "inCounty": 0.18,
+                "inSweden": 0.04
+            }
+        }
+
+    ]
+},
+{
+"sweden": {
+    "beds": 123,
+    "cover": 0.34,
+    "topCountries": [
+        {
+            "name": "Norway",
+            "id": "no",
+            "share": 0.21
+        },
+        {
+            "name": "Norway",
+            "id": "no",
+            "share": 0.21
+        },{
+            "name": "Norway",
+            "id": "no",
+            "share": 0.21
+        }
+    ]
+},
+"counties":[
+    {
+        "id": "sk",
+        "name": "Skåne",
+        "weather": {
+            "temp": 11,
+            "preci": 32
+        },
+        "beds": {
+            "all": 7473,
+            "camp": 31,
+            "hotel": 984,
+            "hostel": 234,
+            "cabin": 37
+        },
+        "cover": {
+            "all": 0.10,
+            "camp": 0.20,
+            "hotel": 0.30,
+            "hostel": 0.20,
+            "cabin": 0.20,
+            "ofSweden": 0.28
+        },
+        "topCountries": [
+            {
+                "name": "Sweden",
+                "id": "se",
+                "share": 0.41
+            },
+            {
+                "name": "Norway",
+                "id": "no",
+                "share": 0.21
+            },{
+                "name": "Norway",
+                "id": "no",
+                "share": 0.21
+            }
+        ],
+        "foreginTourism": {
+            "inCounty": 0.18,
+            "inSweden": 0.04
+        }
+    }
+
+]
+}
+]
