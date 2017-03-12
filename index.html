@@ -24,13 +24,17 @@
   <body>
     <div ng-app="app" ng-controller="ctrl">
       <div class="period-box">
-        <h2>{{datestring}}<h2>
+        <h2>{{datestring}}</h2>
         <input type="range" min="0" max="11" ng-model="selectedPeriod" id="fader">
-        <button ng-Click="animate()" ng-if="play == false">play</button>
-        <button ng-Click="animate()" ng-if="play">pause</button>
+        <button ng-Click="animate()" ng-if="play == false">
+          <i class="fa fa-play fa-fw"></i>
+        </button>
+        <button ng-Click="animate()" ng-if="play">
+          <i class="fa fa-pause fa-fw"></i>
+        </button>
         <div>
-          <button ng-click="setMapType('cover')" >Beläggning</button>
-          <button ng-click="setMapType('nights')" >Andel övernattning</button>
+          <button ng-click="setMapType('cover')" ng-class="mapType == 'cover' ? 'button button-active':'button'">Beläggning</button>
+          <button ng-click="setMapType('nights')" ng-class="mapType == 'nights' ? 'button button-active':'button'">Andel övernattning</button>
         </div>
       </div>
       <div id="chartdiv" class="map"></div>
@@ -70,6 +74,10 @@
               </div>
           </div>
         </div>
+      </div>
+      <div class="footer">
+        <hr/>
+        Made in under 22 hours by Team Awesomeness as a part of <a href="http://hackforsweden.se/">Hack for Sweden</a>, 2017.
       </div>
 
     <script src="./script.js"></script>

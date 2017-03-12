@@ -1,6 +1,11 @@
-$primary: blue;
-h1{
-  color: $primary;
+$blue: #A7CECB;
+$dark-blue: #8BA6A9;
+$green: #51843A;
+$light-green:rgb(140,181,123);
+h2{
+  color: #51843A;
+  margin-top:30px;
+  margin-bottom: 10px;
 }
 .header{
   height: 100px;
@@ -23,4 +28,36 @@ h1{
   input{
     width: 400px;
   }
+}
+button{
+  border:none;
+  background: none;
+  border-box:none;
+  i{
+    color:$green !important;
+  }
+}
+button:hover{
+  i{
+    color:$light-green!important;
+  }
+}
+button:focus{
+  outline: none;
+}
+.button{
+  font-size: 16px;
+  color:$light-green !important;
+  border-bottom: 3px solid $light-green;
+  margin-bottom: 5px;
+}
+.button-active{
+  color:$green !important;
+  border-bottom: 3px solid $green;
+}
+.footer{
+  text-align: center;
+  margin: 0, auto;
+  color:grey;
+  font-size: 12px;
 }

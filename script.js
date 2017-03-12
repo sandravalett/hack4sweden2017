@@ -164,7 +164,7 @@ app.controller('ctrl', function($scope, $http) {
     }
     $scope.$watch('selectedPeriod', function() {
         $scope.selectedPeriod = parseInt($scope.selectedPeriod);
-        $scope.datestring = "2016 - "+$scope.getMonth();
+        $scope.datestring = $scope.getMonth()+ " 2016";
         if($scope.allData != null){
           $scope.updateChart(true);
         }
