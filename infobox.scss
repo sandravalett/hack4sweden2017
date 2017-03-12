@@ -2,6 +2,7 @@
     border: 1px solid black;
     border-radius: 2px;
     width: 415px;
+    box-shadow: 5px 5px 5px #888888;
 
     .date {
         position: absolute;
@@ -17,7 +18,6 @@
         .info-part {
             display: flex;
             width: 170px;
-            margin-top: 20px;
 
             i {
                 font-size: 40px;

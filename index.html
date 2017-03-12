@@ -36,10 +36,10 @@
       <div id="chartdiv" class="map"></div>
 
       <div ng-if="showInfo" class="info-box">
-          <h2>{{selectedData.name}}</h2>
+          <h2 style="margin-bottom: 20px;">{{selectedData.name}}</h2>
           <span class="date">{{datestring}}</span>
           <div class="info-parts">
-              <div class="info-part">
+              <div class="info-part" style="margin-bottom: 25px;">
                   <i class="fa fa-home fa-fw"></i>
                   <div>
                       <span class="info-title">Beläggning</span><br />
@@ -51,7 +51,7 @@
                   <div>
                       <span class="info-title">Övernattningar</span><br />
                       <span class="info-value"><strong>{{selectedData.nights.percentage}}%</strong>
-                      <span class="small">(av totalen)</span></span>
+                      <span class="small">(av Sverige)</span></span>
                   </div>
               </div>
               <div class="info-part">
