@@ -24,7 +24,7 @@
   <body>
     <div ng-app="app" ng-controller="ctrl">
       <div class="period-box">
-        <h2>{{datestring}}</h2>
+        <h1>{{datestring}}</h1>
         <input type="range" min="0" max="11" ng-model="selectedPeriod" id="fader">
         <button ng-Click="animate()" ng-if="play == false">
           <i class="fa fa-play fa-fw"></i>

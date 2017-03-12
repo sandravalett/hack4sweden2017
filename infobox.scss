@@ -1,3 +1,5 @@
+$green: #51843A;
+$light-green:rgb(140,181,123);
 .info-box {
     border: 1px solid black;
     border-radius: 2px;
@@ -21,6 +23,7 @@
 
             i {
                 font-size: 40px;
+                color:$green;
             }
 
             span.info-title {
