@@ -16,8 +16,6 @@
   <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all" />
 
-
-
   <link rel="stylesheet" href="./style.min.css"/>
   <link rel="stylesheet" href="./infobox.min.css"/>
   <head>
@@ -28,6 +26,12 @@
       <div class="period-box">
         <h2>{{datestring}}<h2>
         <input type="range" min="0" max="11" ng-model="selectedPeriod" id="fader">
+        <button ng-Click="animate()" ng-if="play == false">play</button>
+        <button ng-Click="animate()" ng-if="play">pause</button>
+        <div>
+          <button ng-click="setMapType('cover')" >Beläggning</button>
+          <button ng-click="setMapType('nights')" >Andel övernattning</button>
+        </div>
       </div>
       <div id="chartdiv" class="map"></div>
 
