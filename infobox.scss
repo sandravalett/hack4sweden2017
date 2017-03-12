@@ -1,3 +1,33 @@
-.testclass {
+.info-box {
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 415px;
 
+    .date {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+     .info-parts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        .info-part {
+            display: flex;
+            width: 170px;
+            margin-top: 20px;
+
+            i {
+                font-size: 40px;
+            }
+
+            span.info-title {
+                font-size: 14px;
+            }
+        }
+
+
+    }
 }

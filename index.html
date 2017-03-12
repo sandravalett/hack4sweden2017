@@ -14,10 +14,12 @@
   <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
   <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
   <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all" />
 
 
 
   <link rel="stylesheet" href="./style.min.css"/>
+  <link rel="stylesheet" href="./infobox.min.css"/>
   <head>
     <title>Team Awesomeness</title>
   </head>
@@ -31,23 +33,37 @@
 
       <div ng-if="showInfo" class="info-box">
           <h2>{{selectedData.name}}</h2>
-          <ul>
-              <li>
-                  Övernattningar: <strong>{{selectedData.nights.all}}</strong>
-              </li>
-              <li>
-                  Andel av sveriges övernattningar: <strong>{{selectedData.nights.percentage}}%</strong>
-              </li>
-              <li>
-                  Beläggning: <strong>{{selectedData.cover.all}}%</strong>
-              </li>
-              <li>
-                  Medeltemp: <strong>{{selectedData.weather.temp}}°C</strong>
-              </li>
-              <li>
-                  Nederbörd: <strong>{{selectedData.weather.preci}}mm</strong>
-              </li>
-          </ul>
+          <span class="date">{{datestring}}</span>
+          <div class="info-parts">
+              <div class="info-part">
+                  <i class="fa fa-home fa-fw"></i>
+                  <div>
+                      <span class="info-title">Beläggning</span><br />
+                      <span class="info-value"><strong>{{selectedData.cover.all}}%</strong></span>
+                  </div>
+              </div>
+              <div class="info-part">
+                  <i class="fa fa-bed fa-fw"></i>
+                  <div>
+                      <span class="info-title">Övernattningar</span><br />
+                      <span class="info-value"><strong>{{selectedData.nights.all}}</strong></span>
+                  </div>
+              </div>
+              <div class="info-part">
+                  <i class="fa fa-thermometer-empty fa-fw"></i>
+                  <div>
+                      <span class="info-title">Medeltemperatur</span><br />
+                      <span class="info-value"><strong>{{selectedData.weather.temp}}°C</strong></span>
+                  </div>
+              </div>
+              <div class="info-part">
+                  <i class="fa fa-tint fa-fw"></i>
+                  <div>
+                      <span class="info-title">Nederbörd</span><br />
+                      <span class="info-value"><strong>{{selectedData.weather.preci}}mm</strong></span>
+                  </div>
+              </div>
+          </div>
         </div>
       </div>
 

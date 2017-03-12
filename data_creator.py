@@ -17,6 +17,9 @@ with open('rawdata/preci.json') as data_file:
 with open('rawdata/hotelnights.json') as data_file:
     nights = json.load(data_file)
 
+with open('rawdata/foregin.json') as data_file:
+    foreginPercentage = json.load(data_file)
+
 
 
 def getOverallCoverForCounty(month, name):
@@ -46,6 +49,7 @@ for month in range(0, 12):
     m = Munch(sweden={}, counties=[])
     m.sweden = Munch(beds="", nights="", cover="", topCountries=[])
     m.sweden.nights = nights["dataset"]["value"][month][21]
+    m.sweden.foreginPercentage = foreginPercentage[month]
     for xx in range(0, 3):
         country = Munch(id="", name="", share="")
         m.sweden.topCountries.append(country)
