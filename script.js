@@ -6,18 +6,26 @@ app.controller('ctrl', function($scope, $http) {
     $scope.selectedData = {};
     $scope.showInfo = false;
     $scope.allDate = null;
+    $scope.play = false;
+    $scope.mapType = "cover";
 
     $http.get('finalData.json').success(function(data) {
       $scope.allData = data;
       $scope.makeChart();
+      //$scope.animateTimeline();
     });
     let map = "";
 
+
     $scope.makeChart = function(){
       var areas = $scope.allData[$scope.selectedPeriod].counties.map(function(county) {
+        let value = (county.cover.all * 100);
+        if($scope.mapType == "nights"){
+          value = (county.nights.percentage * 100);
+        }
          let obj = {
            id: county.id,
-           value: (county.cover.all * 100)
+           value: value
          };
          return obj;
        });
@@ -88,7 +96,25 @@ app.controller('ctrl', function($scope, $http) {
           }, 500);
         }
       });
+  };
+
+  $scope.animate = function(){
+    $scope.play = !$scope.play;
+    if($scope.play){
+      $scope.animateTimeline();
+    }
   }
+
+  $scope.animateTimeline = function(){
+      setTimeout(function(){
+        $scope.$apply(function(){
+          $scope.selectedPeriod = $scope.selectedPeriod + 1;
+          if($scope.play && $scope.selectedPeriod < 11){
+            $scope.animateTimeline();
+          }
+        });
+      },2000);
+  };
 
     $scope.getMonth = function(){
       let list = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
@@ -111,9 +137,13 @@ app.controller('ctrl', function($scope, $http) {
     }
     $scope.updateChart = function(keepZoom){
       var areas = $scope.allData[$scope.selectedPeriod].counties.map(function(county) {
+        let value = (county.cover.all * 100);
+        if($scope.mapType == "nights"){
+          value = (county.nights.percentage * 100);
+        }
          let obj = {
            id: county.id,
-           value: (county.cover.all * 100),
+           value: value,
            showAsSelected: county.id === $scope.selectedArea
              };
          return obj;
@@ -133,12 +163,23 @@ app.controller('ctrl', function($scope, $http) {
       $scope.selectedData = selectedList[0];
     }
     $scope.$watch('selectedPeriod', function() {
+        $scope.selectedPeriod = parseInt($scope.selectedPeriod);
         $scope.datestring = "2016 - "+$scope.getMonth();
         if($scope.allData != null){
           $scope.updateChart(true);
-
         }
-
     });
+
+    $scope.setMapType = function(type){
+        $scope.mapType = type;
+        $scope.updateChart();
+    };
+
+
+
+
+
+
+
 
 });

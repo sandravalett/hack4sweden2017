@@ -15,8 +15,6 @@
   <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
   <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
-
-
   <link rel="stylesheet" href="./style.min.css"/>
   <head>
     <title>Team Awesomeness</title>
@@ -26,6 +24,12 @@
       <div class="period-box">
         <h2>{{datestring}}<h2>
         <input type="range" min="0" max="11" ng-model="selectedPeriod" id="fader">
+        <button ng-Click="animate()" ng-if="play == false">play</button>
+        <button ng-Click="animate()" ng-if="play">pause</button>
+        <div>
+          <button ng-click="setMapType('cover')" >Beläggning</button>
+          <button ng-click="setMapType('nights')" >Andel övernattning</button>
+        </div>
       </div>
       <div id="chartdiv" class="map"></div>
 
