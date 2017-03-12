@@ -17,8 +17,7 @@ app.controller('ctrl', function($scope, $http) {
       var areas = $scope.allData[$scope.selectedPeriod].counties.map(function(county) {
          let obj = {
            id: county.id,
-           value: (county.cover.all * 100),
-           showAsSelected: county.id === $scope.selectedArea
+           value: (county.cover.all * 100)
          };
          return obj;
        });
@@ -64,7 +63,6 @@ app.controller('ctrl', function($scope, $http) {
         $scope.$apply(function(){
             if($scope.selectedArea == event.mapObject.id){
                $scope.selectedArea = "";
-               map.selectObject(null);
                $scope.setSelectedData(null);
 
             }
@@ -78,9 +76,17 @@ app.controller('ctrl', function($scope, $http) {
       });
       map.addListener("homeButtonClicked",function(event){
         $scope.makeChart();
+        $scope.$apply(function(){
+            $scope.selectedArea = "";
+            $scope.showInfo = false;
+        });
       });
       map.addListener("selectedObjectChanged", function(event){
-        
+        if($scope.selectedArea != ""){
+          setTimeout(function () {
+            $scope.updateChart(true);
+          }, 500);
+        }
       });
   }
 
@@ -103,7 +109,7 @@ app.controller('ctrl', function($scope, $http) {
 
       }
     }
-    $scope.updateChart = function(){
+    $scope.updateChart = function(keepZoom){
       var areas = $scope.allData[$scope.selectedPeriod].counties.map(function(county) {
          let obj = {
            id: county.id,
@@ -114,15 +120,13 @@ app.controller('ctrl', function($scope, $http) {
        });
 
       map.dataProvider.areas = areas;
-      map.dataProvider.zoomLevel = map.zoomLevel();
-      map.dataProvider.zoomLatitude = map.dataProvider.zoomLatitudeC = map.zoomLatitude();
-      map.dataProvider.zoomLongitude = map.dataProvider.zoomLongitudeC = map.zoomLongitude();
-      let a = map.selectedObject;
+      if(keepZoom){
+        map.dataProvider.zoomLevel = map.zoomLevel();
+        map.dataProvider.zoomLatitude = map.dataProvider.zoomLatitudeC = map.zoomLatitude();
+        map.dataProvider.zoomLongitude = map.dataProvider.zoomLongitudeC = map.zoomLongitude();
+      }
       // update map
       map.validateData();
-      map.selectObject(a);
-
-
 
 
       var selectedList = $scope.allData[$scope.selectedPeriod].counties.filter(function(county){return county.id === $scope.selectedArea});
@@ -131,7 +135,7 @@ app.controller('ctrl', function($scope, $http) {
     $scope.$watch('selectedPeriod', function() {
         $scope.datestring = "2016 - "+$scope.getMonth();
         if($scope.allData != null){
-          $scope.updateChart();
+          $scope.updateChart(true);
 
         }
 
